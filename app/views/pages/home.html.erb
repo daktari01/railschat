@@ -5,12 +5,16 @@
       <%= render '/messages/message', message: message %>
     <% end %>
   </div>
-  <%= form_with model: @message do |f| %>
-    <div class="input-group mb-3">
-      <%= f.text_field :body, placeholder: "Say something ...", class:"form-control" %>
-      <div class="input-group-append">
-        <%= f.submit "Send", class:"btn btn-success" %>
+  <% if current_user %>
+    <%= form_with model: @message do |f| %>
+      <div class="input-group mb-3">
+        <%= f.text_field :body, placeholder: "Say something ...", class:"form-control" %>
+        <div class="input-group-append">
+          <%= f.submit "Send", class:"btn btn-success" %>
+        </div>
       </div>
-    </div>
+    <% end %>
+  <% else %>
+    <p style="margin-top: 20px;">You need to be <%= link_to "signed in", new_user_session_path %> in order to chat!</p>
   <% end %>
 </div>
